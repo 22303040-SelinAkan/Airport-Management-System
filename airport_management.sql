@@ -201,8 +201,8 @@ GROUP BY technician_id;
 
 SELECT *
 FROM Planes
-ORDER BY capacity DESC
-LIMIT 1;
+WHERE capacity = (SELECT MAX(capacity) 
+FROM Planes);
 
 SELECT *
 FROM Planes
@@ -217,8 +217,8 @@ FROM Employees;
 
 SELECT *
 FROM Employees
-ORDER BY salary DESC
-LIMIT 1;
+WHERE salary = (SELECT MAX(salary) 
+FROM Employees);
 
 SELECT 
 Planes.plane_no,
@@ -273,6 +273,10 @@ ON Technicians.ssn = Employees.ssn
 JOIN Plane_Models
 ON Technician_Expertise.model_id = Plane_Models.model_id;
 
-SELECT *
+SELECT * 
 FROM Traffic_Controllers
 WHERE last_medical_exam > '2026-01-01';
+
+SELECT first_name, last_name, phone 
+FROM Employees 
+WHERE ssn IN (SELECT ssn FROM Technicians);
